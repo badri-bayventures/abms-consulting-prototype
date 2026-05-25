@@ -1,12 +1,25 @@
 /**
  * ABMS Consulting — Homepage (institutional, evergreen).
- * Style guard: institutional editorial. ABMS red is the only chromatic
- * statement. Layout is asymmetric and rule-driven. Photography is
- * full-bleed Malaysian institutional infrastructure.
+ *
+ * Round 1 revisions applied:
+ *  1. Hero plate swapped to a neutral KL business-district view.
+ *  2. Hero headline now leads with practitioner-led identity, not nationality.
+ *  3. Founder magazine section collapsed into a single credibility band with
+ *     a placeholder "Read the full practitioner profile" link to /about
+ *     (link toasts "coming soon" until /about is built).
+ *  4. Fabricated Ashok pull-quote removed entirely; no replacement.
+ *  5. Bank Rakyat removed from the Standards/Memberships grid and from the
+ *     hero right-column ledger.
+ *  6. Compliance Quarterly grid replaced by a single "Vol. 1 launching
+ *     Q1 2027" interstitial card; section opener preserved.
+ *
+ * Design system (palette, typography, composition, animation discipline)
+ * is unchanged.
  */
 import { useEffect } from "react";
 import { Link } from "wouter";
-import { ArrowRight, ArrowUpRight, Quote } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail } from "lucide-react";
+import { toast } from "sonner";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SectionOpener } from "@/components/site/SectionOpener";
@@ -109,33 +122,6 @@ const TRAINING = [
   },
 ];
 
-const INSIGHTS = [
-  {
-    issue: "Q2 · 2026",
-    kicker: "Section 17A",
-    title: "Adequate procedures three years on — what the courts have actually said",
-    minutes: "9 min read",
-  },
-  {
-    issue: "Q2 · 2026",
-    kicker: "ISO 37001",
-    title: "Reading the 2026 revision drafts: what changes for Malaysian implementers",
-    minutes: "12 min read",
-  },
-  {
-    issue: "Q1 · 2026",
-    kicker: "CIDB · Pekeliling 1/2026",
-    title: "G7 contractors and the January 2027 enforcement window",
-    minutes: "7 min read",
-  },
-  {
-    issue: "Q1 · 2026",
-    kicker: "Whistleblowing",
-    title: "PDPA-compliant intake design under the 2024 amendments",
-    minutes: "11 min read",
-  },
-];
-
 export default function Home() {
   useEffect(() => {
     const els = document.querySelectorAll(".reveal");
@@ -158,10 +144,9 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       {/* HERO ============================================================ */}
       <section className="relative isolate min-h-[760px] overflow-hidden bg-[#0E0E10] text-white">
-        {/* Background plate */}
         <img
-          src={ASSETS.heroPutrajaya}
-          alt="Perdana Putra, Putrajaya at blue hour"
+          src={ASSETS.heroKlDistrict}
+          alt="Kuala Lumpur business district at dusk"
           className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-90"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#0E0E10] via-[#0E0E10]/80 to-transparent" />
@@ -177,20 +162,20 @@ export default function Home() {
               <div className="flex items-center gap-3">
                 <span className="h-[2px] w-10 bg-[var(--abms-red)]" />
                 <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-white/75">
-                  § Firm · Est. 2019 · Kuala Lumpur
+                  § Firm · Est. 2019 · Based in Kuala Lumpur
                 </span>
               </div>
 
               <h1 className="mt-7 font-display text-[58px] leading-[0.98] tracking-[-0.02em] text-white sm:text-[72px] lg:text-[88px]">
-                A Malaysian
+                A practitioner-led
                 <br />
-                <span className="text-white">practitioner-led</span>
+                <span className="text-white">anti-bribery and</span>
                 <br />
                 <span className="italic font-light text-white/95">compliance advisory.</span>
               </h1>
 
               <p className="mt-8 max-w-xl text-[16px] leading-[1.65] text-white/80">
-                ABMS Consulting advises boards, GLC suppliers, and large privates on anti-bribery, ISO 37001, Section 17A, and the broader compliance estate. The practice is led from Kuala Lumpur by an operator with twenty-five years inside regulated organisations — not a generalist.
+                ABMS Consulting advises boards, GLC suppliers, and large privates on anti-bribery, ISO 37001, Section 17A, and the broader compliance estate. The practice is led by an operator with twenty-five years inside regulated organisations — not a generalist. Engagements are run from Kuala Lumpur and Johor Bahru.
               </p>
 
               <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -224,17 +209,15 @@ export default function Home() {
                   </div>
                   <div>
                     <dt className="text-[11.5px] uppercase tracking-[0.18em] text-white/55">Practitioner experience</dt>
-                    <dd className="mt-1 data-numeral text-[20px] tracking-tight">
-                      25 yrs · APAC · MEA
-                    </dd>
+                    <dd className="mt-1 data-numeral text-[20px] tracking-tight">25 yrs · APAC · MEA</dd>
                   </div>
                   <div>
                     <dt className="text-[11.5px] uppercase tracking-[0.18em] text-white/55">Active mandates</dt>
                     <dd className="mt-1 data-numeral text-[20px] tracking-tight">ISO 37001 · 37301 · 37101 · 37002</dd>
                   </div>
                   <div>
-                    <dt className="text-[11.5px] uppercase tracking-[0.18em] text-white/55">Featured client</dt>
-                    <dd className="mt-1 text-[16px] tracking-tight">Bank Rakyat</dd>
+                    <dt className="text-[11.5px] uppercase tracking-[0.18em] text-white/55">Working languages</dt>
+                    <dd className="mt-1 text-[16px] tracking-tight">English · Bahasa Malaysia · Tamil</dd>
                   </div>
                 </dl>
               </div>
@@ -263,69 +246,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRACTITIONER ===================================================== */}
-      <section id="practitioner" className="relative bg-bone paper-grain">
-        <div className="container py-24 lg:py-32">
-          <div className="grid grid-cols-12 gap-10 reveal">
-            <div className="col-span-12 lg:col-span-5">
-              <div className="relative">
-                <img
-                  src={ASSETS.practitionerPortrait}
-                  alt="Ashok Sarangapani, founding practitioner"
-                  className="aspect-[4/5] w-full object-cover"
-                />
-                <div className="absolute -bottom-3 -right-3 hidden md:flex h-24 w-24 items-center justify-center bg-[var(--abms-red)] text-white">
-                  <div className="text-center leading-tight">
-                    <div className="data-numeral text-[28px] font-medium">25</div>
-                    <div className="text-[10px] tracking-[0.2em] uppercase">Years</div>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-4 font-mono text-[11px] tracking-[0.22em] uppercase text-charcoal">
-                Plate 01 · The Practitioner · KL, 2026
-              </div>
-            </div>
-
-            <div className="col-span-12 lg:col-span-7 lg:pl-10">
-              <SectionOpener
-                reference="§ Practitioner · Founder"
-                title={
-                  <>
-                    Ashok Sarangapani.
-                    <br />
-                    <span className="italic font-light text-charcoal/85">An operator before an advisor.</span>
-                  </>
-                }
-              />
-              <div className="mt-8 max-w-xl space-y-5 body-prose">
-                <p>
-                  Before founding ABMS, Ashok led APAC Compliance & Risks at Puma Energy for fourteen years — a downstream energy operator across some of the world's most bribery-exposed jurisdictions. The advisory practice is built on that operator vantage, not on consulting templates.
-                </p>
-                <p>
-                  He is one of the few practitioners in Southeast Asia to hold both PECB Lead Auditor and PECB Certified Trainer credentials simultaneously, alongside CCEP-I, CFCS, GRCA, and LIFA. Mandates have spanned the Middle East, Africa, and the Asia-Pacific.
-                </p>
-              </div>
-
-              {/* Credential ledger */}
-              <div className="mt-10 grid grid-cols-2 gap-x-10 gap-y-6 border-t border-mist pt-6 max-w-xl">
-                <Credential label="PECB Canada" value="Lead Auditor · Certified Trainer" />
-                <Credential label="ACFE / ACAMS lineage" value="CFCS" />
-                <Credential label="Society of Corporate Compliance" value="CCEP-I" />
-                <Credential label="GRC Audit" value="GRCA" />
-                <Credential label="Internal Forensic" value="LIFA" />
-                <Credential label="Operator history" value="Puma Energy · 14 yrs APAC" />
-              </div>
-
-              <blockquote className="mt-10 max-w-xl border-l-2 border-[var(--abms-red)] pl-5 font-display text-[22px] leading-[1.3] text-foreground">
-                <Quote className="mb-2 h-5 w-5 text-[var(--abms-red)]" />
-                <span className="italic">
-                  Compliance is the discipline of doing the unglamorous thing on the days when nobody is checking. The advisory exists to make that discipline survivable inside a real operating company.
+      {/* PRACTITIONER CREDIBILITY BAND ==================================== */}
+      <section id="practitioner" className="relative bg-bone border-y border-mist">
+        <div className="container py-8 lg:py-10">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between reveal">
+            <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-5">
+              <div className="flex items-center gap-3">
+                <span className="h-[2px] w-10 bg-[var(--abms-red)]" />
+                <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-charcoal whitespace-nowrap">
+                  § Practitioner
                 </span>
-                <div className="mt-3 not-italic text-[12px] tracking-[0.18em] uppercase font-sans text-charcoal">
-                  — Ashok Sarangapani · Founding Practitioner
-                </div>
-              </blockquote>
+              </div>
+              <p className="text-[14.5px] leading-[1.55] text-foreground max-w-3xl">
+                Led by <span className="font-medium">Ashok Sarangapani</span> · 25 years compliance leadership across APAC and MEA · PECB Lead Auditor + Certified Trainer · UNGC Member.
+              </p>
             </div>
+            <a
+              href="/about"
+              onClick={(e) => {
+                e.preventDefault();
+                toast("Practitioner profile — coming soon");
+              }}
+              className="inline-flex items-center gap-2 border-b border-foreground/30 pb-1 text-[13px] font-medium hover:border-foreground self-start lg:self-auto whitespace-nowrap"
+            >
+              <span>Read the full practitioner profile</span>
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
           </div>
         </div>
       </section>
@@ -429,7 +375,7 @@ export default function Home() {
             </div>
 
             <div className="col-span-12 lg:col-span-7">
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <CredentialCard
                   reference="PECB · Canada"
                   title="Authorized Partner"
@@ -444,7 +390,7 @@ export default function Home() {
                   caption="Aligned with the ten principles on human rights, labour, environment, and anti-corruption."
                   artwork={
                     <div className="px-3 py-2 border border-foreground/40 font-mono text-[11px] tracking-[0.22em] uppercase">
-                      UNGC · 2024
+                      UNGC · Member
                     </div>
                   }
                 />
@@ -454,16 +400,6 @@ export default function Home() {
                   caption="A combination held by very few practitioners in Southeast Asia."
                   artwork={
                     <div className="data-numeral text-[42px] font-medium leading-none text-[var(--abms-red)]">02</div>
-                  }
-                />
-                <CredentialCard
-                  reference="Featured client"
-                  title="Bank Rakyat"
-                  caption="Engagement delivered under non-disclosure; reference available on qualified request."
-                  artwork={
-                    <div className="px-3 py-2 border border-foreground/40 font-display text-[16px] tracking-tight">
-                      Bank Rakyat
-                    </div>
                   }
                 />
               </div>
@@ -488,6 +424,10 @@ export default function Home() {
               />
               <a
                 href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  toast("Full calendar — coming soon");
+                }}
                 className="mt-8 inline-flex items-center gap-2 border-b border-foreground/30 pb-1 text-[13px] font-medium hover:border-foreground"
               >
                 <span>View full 2026 calendar</span>
@@ -527,7 +467,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* INSIGHTS / COMPLIANCE QUARTERLY =================================== */}
+      {/* INSIGHTS — INTERSTITIAL ========================================== */}
       <section id="insights" className="bg-bone paper-grain border-t border-mist">
         <div className="container py-24 lg:py-32">
           <div className="grid grid-cols-12 gap-10 reveal">
@@ -540,35 +480,65 @@ export default function Home() {
                     <br /> as credibility.
                   </>
                 }
-                kicker="The firm publishes a quarterly compliance review and shorter notes on standards, regulator behaviour, and Malaysian enforcement context."
+                kicker="ABMS will publish a quarterly compliance review and shorter notes on standards, regulator behaviour, and Malaysian enforcement context. Vol. 1 launches Q1 2027."
               />
-              <a
-                href="#"
-                className="mt-8 inline-flex items-center gap-2 border-b border-foreground/30 pb-1 text-[13px] font-medium hover:border-foreground"
-              >
-                <span>Subscribe to Compliance Quarterly</span>
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
             </div>
 
             <div className="col-span-12 lg:col-span-8">
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-px bg-mist">
-                {INSIGHTS.map((item) => (
-                  <li key={item.title} className="bg-bone p-7 transition-colors duration-200 hover:bg-background">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-charcoal">{item.kicker}</span>
-                      <span className="data-numeral text-[11px] text-charcoal/70">{item.issue}</span>
-                    </div>
-                    <h4 className="mt-5 font-display text-[22px] leading-[1.25] tracking-[-0.01em]">{item.title}</h4>
-                    <div className="mt-6 flex items-center justify-between text-[12.5px] text-charcoal">
-                      <span>{item.minutes}</span>
-                      <span className="inline-flex items-center gap-1">
-                        Read <ArrowUpRight className="h-3.5 w-3.5" />
-                      </span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <div className="relative border border-mist bg-background p-10 lg:p-14">
+                <span className="absolute top-0 left-0 h-[2px] w-10 bg-[var(--abms-red)]" />
+                <div className="font-mono text-[11px] tracking-[0.22em] uppercase text-charcoal">
+                  Vol. 1 · Launching Q1 2027
+                </div>
+                <h3 className="mt-5 font-display text-[36px] leading-[1.1] tracking-[-0.02em] sm:text-[44px] max-w-2xl">
+                  <em className="font-light">Compliance Quarterly</em> — a printed and digital review from the practice.
+                </h3>
+                <p className="mt-5 max-w-xl text-[15px] leading-[1.65] text-charcoal">
+                  The first issue covers Section 17A jurisprudence to date, the ISO 37001 revision drafts, and the CIDB Pekeliling 1/2026 enforcement window. Be notified when Vol. 1 is published.
+                </p>
+
+                <form
+                  className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const form = e.currentTarget;
+                    const data = new FormData(form);
+                    const email = String(data.get("email") || "").trim();
+                    if (!email) {
+                      toast("Enter an email to be notified");
+                      return;
+                    }
+                    toast("Recorded — we will notify you when Vol. 1 publishes.");
+                    form.reset();
+                  }}
+                >
+                  <label htmlFor="cq-email" className="sr-only">
+                    Work email
+                  </label>
+                  <div className="flex items-center gap-3 border border-foreground/20 bg-background px-4 py-3 flex-1 max-w-md focus-within:border-foreground">
+                    <Mail className="h-4 w-4 text-charcoal" />
+                    <input
+                      id="cq-email"
+                      name="email"
+                      type="email"
+                      inputMode="email"
+                      placeholder="Work email"
+                      className="flex-1 bg-transparent text-[14px] outline-none placeholder:text-charcoal/60"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="inline-flex items-center justify-center gap-2 bg-foreground text-background px-5 py-3 text-[13px] font-medium tracking-wide transition-colors hover:bg-foreground/90 active:scale-[0.97]"
+                  >
+                    <span>Notify me when Vol. 1 launches</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+                </form>
+
+                <div className="mt-6 font-mono text-[10.5px] tracking-[0.22em] uppercase text-charcoal/80">
+                  Placeholder · Subscriber list opens Q4 2026
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -635,15 +605,6 @@ export default function Home() {
       </section>
 
       <SiteFooter />
-    </div>
-  );
-}
-
-function Credential({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <div className="font-mono text-[10.5px] tracking-[0.22em] uppercase text-charcoal/85">{label}</div>
-      <div className="mt-1.5 text-[14.5px] leading-snug text-foreground">{value}</div>
     </div>
   );
 }

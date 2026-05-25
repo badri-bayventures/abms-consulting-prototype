@@ -1,12 +1,21 @@
 /**
  * /g7-iso37001-readiness — campaign landing page.
- * Inherits the homepage system (palette, type, header/footer) but adds
- * operational urgency through a live countdown and a six-month pathway.
- * ABMS red is reserved for the rule, the countdown highlight, and the
- * primary CTAs; everything else stays institutional.
+ *
+ * Round 1 revisions applied:
+ *  - Hero plate swapped from Port Klang to a highway-viaduct construction
+ *    plate (CIDB G7 contractor context).
+ *  - Practitioner portrait removed entirely; the "led by the practitioner"
+ *    block is now a short credential band, no portrait artwork.
+ *  - Bank Rakyat removed from the practitioner band.
+ *  - No fabricated quotes or testimonials.
+ *  - Hero framing leads with mandate urgency and the practitioner, not
+ *    nationality.
+ *
+ * Design system (palette, typography, composition, animation) unchanged.
  */
 import { useEffect } from "react";
 import { ArrowRight, ArrowUpRight, MessageCircle, Download } from "lucide-react";
+import { toast } from "sonner";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SectionOpener } from "@/components/site/SectionOpener";
@@ -78,9 +87,9 @@ export default function G7Readiness() {
       {/* HERO ============================================================ */}
       <section className="relative isolate overflow-hidden bg-[#0E0E10] text-white">
         <img
-          src={ASSETS.portKlang}
-          alt="Port Klang at blue hour"
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40"
+          src={ASSETS.heroG7Viaduct}
+          alt="Highway viaduct under construction at blue hour"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-45"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#0E0E10] via-[#0E0E10]/85 to-[#0E0E10]/55" />
 
@@ -101,7 +110,7 @@ export default function G7Readiness() {
                 Get ISO 37001 certified before your G7 renewal deadline.
               </h1>
               <p className="mt-7 max-w-2xl text-[15.5px] leading-[1.65] text-white/80">
-                CIDB Pekeliling 1/2026 sets ISO 37001 evidence as a precondition for SPKK Grade G7 renewal. Implementation typically requires six to nine months. The practical starting window is now.
+                CIDB Pekeliling 1/2026 sets ISO 37001 evidence as a precondition for SPKK Grade G7 renewal. Implementation typically requires six to nine months. The practical starting window is now. The mandate is led by a practitioner — PECB Lead Auditor and Certified Trainer — not handed off after onboarding.
               </p>
 
               <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -114,6 +123,10 @@ export default function G7Readiness() {
                 </a>
                 <a
                   href="#download"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toast("G7 Readiness Checklist — coming soon");
+                  }}
                   className="inline-flex items-center gap-2 border border-white/30 px-5 py-3 text-[13.5px] font-medium tracking-wide text-white transition-colors hover:border-white"
                 >
                   <Download className="h-4 w-4" />
@@ -285,6 +298,10 @@ export default function G7Readiness() {
                 </a>
                 <a
                   href="#download"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toast("G7 Readiness Checklist — coming soon");
+                  }}
                   className="inline-flex items-center gap-2 border-b border-foreground/30 pb-1 text-[13.5px] font-medium tracking-wide hover:border-foreground"
                 >
                   <Download className="h-4 w-4" />
@@ -296,40 +313,56 @@ export default function G7Readiness() {
         </div>
       </section>
 
-      {/* PRACTITIONER (short) ============================================ */}
+      {/* PRACTITIONER (credibility band, no portrait) ===================== */}
       <section className="relative bg-background border-t border-mist">
         <div className="container py-20 lg:py-24">
           <div className="grid grid-cols-12 gap-10 reveal">
-            <div className="col-span-12 lg:col-span-4">
-              <div className="relative max-w-[360px]">
-                <img
-                  src={ASSETS.practitionerPortrait}
-                  alt="Ashok Sarangapani"
-                  className="aspect-[4/5] w-full object-cover"
-                />
-                <div className="mt-3 font-mono text-[11px] tracking-[0.22em] uppercase text-charcoal">
-                  Plate 02 · Practitioner · KL
-                </div>
-              </div>
-            </div>
-            <div className="col-span-12 lg:col-span-8 lg:pl-6">
+            <div className="col-span-12 lg:col-span-5">
               <SectionOpener
                 reference="§ Practitioner · Short form"
                 title={
                   <>
-                    Engagements are led by the practitioner, <span className="italic font-light">not handed off after onboarding.</span>
+                    Engagements are led by the practitioner,{" "}
+                    <span className="italic font-light">not handed off after onboarding.</span>
                   </>
                 }
+                kicker="The same practitioner who scopes your engagement signs off on your internal audit. That single line of accountability is the practice's core proposition for G7 contractors operating under SPKK renewal pressure."
               />
-              <p className="mt-6 max-w-2xl body-prose">
-                Ashok Sarangapani led APAC Compliance & Risks at Puma Energy for fourteen years before founding ABMS. He is a PECB Certified Trainer and Lead Auditor; the same person who delivers your training also signs off on your internal audit. That single line of accountability is the practice's core proposition for G7 contractors operating under SPKK renewal pressure.
-              </p>
-              <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-5 max-w-3xl">
-                <Credential label="PECB Canada" value="Lead Auditor · Certified Trainer" />
-                <Credential label="Operator history" value="Puma Energy · 14 yrs APAC" />
-                <Credential label="Memberships" value="UN Global Compact" />
-                <Credential label="Featured client" value="Bank Rakyat" />
+            </div>
+            <div className="col-span-12 lg:col-span-7 lg:pl-6">
+              <div className="border-t border-mist">
+                <CredentialRow
+                  ref1="Practitioner"
+                  ref2="Ashok Sarangapani"
+                  body="Twenty-five years of compliance leadership across APAC and MEA, including fourteen years leading APAC Compliance & Risks at Puma Energy."
+                />
+                <CredentialRow
+                  ref1="Accreditations"
+                  ref2="PECB Lead Auditor + Certified Trainer"
+                  body="One of few practitioners in Southeast Asia holding both credentials simultaneously."
+                />
+                <CredentialRow
+                  ref1="Memberships"
+                  ref2="UN Global Compact · PECB Canada Authorized Partner"
+                  body="Aligned with the ten principles on human rights, labour, environment, and anti-corruption."
+                />
+                <CredentialRow
+                  ref1="Working languages"
+                  ref2="English · Bahasa Malaysia · Tamil"
+                  body="Mandates conducted across Malaysia, the Middle East, Africa, and the Asia-Pacific."
+                />
               </div>
+              <a
+                href="/about"
+                onClick={(e) => {
+                  e.preventDefault();
+                  toast("Practitioner profile — coming soon");
+                }}
+                className="mt-8 inline-flex items-center gap-2 border-b border-foreground/30 pb-1 text-[13px] font-medium hover:border-foreground"
+              >
+                <span>Read the full practitioner profile</span>
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
             </div>
           </div>
         </div>
@@ -358,7 +391,7 @@ export default function G7Readiness() {
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  // placeholder — Calendly link to be wired in later
+                  toast("Calendly booking — coming soon");
                 }}
                 className="inline-flex items-center gap-3 bg-[var(--abms-red)] px-6 py-3.5 text-[13.5px] font-medium tracking-wide text-white transition-all duration-200 hover:bg-[var(--abms-red-deep)] active:scale-[0.97]"
               >
@@ -374,6 +407,10 @@ export default function G7Readiness() {
               </a>
               <a
                 href="#download"
+                onClick={(e) => {
+                  e.preventDefault();
+                  toast("G7 Readiness Checklist — coming soon");
+                }}
                 className="inline-flex items-center gap-2 text-[13px] tracking-wide text-white/70 hover:text-white"
               >
                 <Download className="h-4 w-4" />
@@ -436,11 +473,12 @@ function Stat({ value, suffix, label }: { value: string; suffix?: string; label:
   );
 }
 
-function Credential({ label, value }: { label: string; value: string }) {
+function CredentialRow({ ref1, ref2, body }: { ref1: string; ref2: string; body: string }) {
   return (
-    <div>
-      <div className="font-mono text-[10.5px] tracking-[0.22em] uppercase text-charcoal/85">{label}</div>
-      <div className="mt-1.5 text-[14px] leading-snug text-foreground">{value}</div>
+    <div className="grid grid-cols-12 gap-6 border-b border-mist py-5">
+      <div className="col-span-12 lg:col-span-3 font-mono text-[10.5px] tracking-[0.22em] uppercase text-charcoal">{ref1}</div>
+      <div className="col-span-12 lg:col-span-5 font-display text-[19px] leading-[1.25] tracking-[-0.01em]">{ref2}</div>
+      <div className="col-span-12 lg:col-span-4 text-[13.5px] leading-[1.55] text-charcoal">{body}</div>
     </div>
   );
 }

@@ -115,9 +115,9 @@ export function SiteFooter() {
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="data-numeral text-[11px] tracking-[0.18em] uppercase text-white/55">Featured client</span>
+                <span className="data-numeral text-[11px] tracking-[0.18em] uppercase text-white/55">Working languages</span>
                 <span className="mt-2 inline-flex h-10 items-center px-3 border border-white/20 text-[12px] tracking-[0.12em] uppercase">
-                  Bank Rakyat
+                  EN · BM · TA
                 </span>
               </div>
             </div>

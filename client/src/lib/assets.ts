@@ -1,17 +1,20 @@
 /**
  * Asset URLs for the ABMS Consulting prototype.
- * Generated assets live in webdev static storage; the existing logo
- * is the original Wix asset re-uploaded to webdev storage.
+ *
+ * Round 1 revisions:
+ * - Replaced Putrajaya hero with a neutral KL business-district plate.
+ * - Replaced Port Klang on the G7 page with a highway-viaduct construction plate.
+ * - Removed the AI-generated practitioner portrait from the active asset set.
+ *   (No portrait artwork on homepage or G7 LP. A future /about page will use
+ *   a "Photograph forthcoming" placeholder.)
  */
 export const ASSETS = {
   logoOrig: "/manus-storage/abms_logo_orig_ba639925.png",
   pecbLogo: "/manus-storage/pecb_logo_orig_5d4529c8.jpg",
-  heroPutrajaya:
-    "https://d2xsxph8kpxj0f.cloudfront.net/310519663462037691/bUSZxDgyF5MjC3C7MZirjo/abms_hero_putrajaya-meVKD2M9rxKsiB4NLkzZo4.webp",
-  practitionerPortrait:
-    "https://d2xsxph8kpxj0f.cloudfront.net/310519663462037691/bUSZxDgyF5MjC3C7MZirjo/abms_practitioner_portrait-oRFTS2gyut6D47e4WrGoWu.webp",
-  portKlang:
-    "https://d2xsxph8kpxj0f.cloudfront.net/310519663462037691/bUSZxDgyF5MjC3C7MZirjo/abms_port_klang-9ZGSJAJqvBG4eqM5G7Ngfp.webp",
+  heroKlDistrict:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663462037691/bUSZxDgyF5MjC3C7MZirjo/abms_hero_klcc_district-ZpnDtFFG3RpfBeu5ZXJPvk.webp",
+  heroG7Viaduct:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663462037691/bUSZxDgyF5MjC3C7MZirjo/abms_hero_g7_viaduct-AuHvppJENuwwwrzBTgFpPV.webp",
   klSkyline:
     "https://d2xsxph8kpxj0f.cloudfront.net/310519663462037691/bUSZxDgyF5MjC3C7MZirjo/abms_kl_skyline-ECNg3LxjhJGWcAw7xx2ysk.webp",
   refineryDusk:
